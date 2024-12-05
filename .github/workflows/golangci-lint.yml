@@ -20,7 +20,7 @@ jobs:
 
       - name: Set up Go module (if needed)
         run: |
-          go mod tidy || go mod init <module-name>
+             go mod init main || go mod tidy
 
       - name: Install golangci-lint
         run: |
