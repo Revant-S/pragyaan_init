@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("Database initialization failed: %v", err)
 	}
 
-			router := http.NewServeMux()
+	router := http.NewServeMux()
 
 	port := os.Getenv("SERVER_PORT")
 	if port == "" {
@@ -82,7 +82,7 @@ func testCRUD(ctx context.Context) {
 			"age": 35,
 		},
 	}
-			updateResult, err := collection.UpdateOne(ctx, bson.M{"name": "John Doe"}, update)
+					updateResult, err := collection.UpdateOne(ctx, bson.M{"name": "John Doe"}, update)
 	if err != nil {
 		log.Fatalf("Failed to update document: %v", err)
 	}
