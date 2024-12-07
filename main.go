@@ -55,6 +55,10 @@ func main() {
 	}))
 
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
+	}))
 	docs.SwaggerInfo.BasePath = "/v1"
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
