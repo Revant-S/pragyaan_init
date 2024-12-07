@@ -22,3 +22,10 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - superhero:/data/db
+      - superhero:/data/configdb
+
+volumes:
+  superhero:
+    name: superhero-volume
