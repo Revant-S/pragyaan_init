@@ -12,3 +12,6 @@ lint:
 
 fix:
 	golangci-lint run --fix
+
+gitHooks:
+	bash scripts/setup_hooks.sh

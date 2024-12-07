@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# ANSI color codes
+GREEN='\033[32m'
+CYAN='\033[36m'
+RED='\033[31m'
+YELLOW='\033[33m'
+RESET='\033[0m'
+
+# Run golangci-lint
+printf "${CYAN}
+======================================================================
+Running golangci-lint
+======================================================================${RESET}\n"
+
+golangci-lint run --config .golangci.yml
+
+# Check if linting failed
+if [ $? -ne 0 ]; then
+    # Attempt to automatically fix lint issues
+    printf "${YELLOW}
+======================================================================
+golangci-lint check failed. Attempting to fix issues...
+======================================================================${RESET}\n"
+    
+    golangci-lint run --fix
+    
+    # Check if fixes were successful
+    if [ $? -eq 0 ]; then
+        # Stage the changes
+        git add .
+        
+        # Commit the changes with a descriptive message
+        git commit -m "Fix golangci-lint issues automatically"
+        
+        printf "${GREEN}
+======================================================================
+Lint issues fixed and committed automatically
+======================================================================${RESET}\n"
+    else
+        printf "${RED}
+======================================================================
+Failed to automatically fix lint issues. Manual intervention required.
+======================================================================${RESET}\n"
+        exit 1
+    fi
+else
+    printf "${GREEN}
+======================================================================
+golangci-lint check successful
+======================================================================${RESET}\n"
+fi
