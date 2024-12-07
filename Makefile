@@ -15,3 +15,9 @@ fix:
 
 gitHooks:
 	bash scripts/setup_hooks.sh
+initial_setup:
+	go mod tidy
+	make gitHooks
+	make build
+	swag init
+	make watch
