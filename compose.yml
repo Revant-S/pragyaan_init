@@ -8,6 +8,7 @@ services:
       - .env
     ports:
       - ${EXTERNAL_PORT}:${SERVER_PORT}
+      - ${MONGO_PORT}:${MONGO_PORT} ## Port mapping if using MongoDB in local
     ## remove the volume mounting for production
     volumes:
       - ./:/app
