@@ -1,0 +1,13 @@
+services:
+  backend:
+    container_name: superhero-backend
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev ## Use Dockerfile.prod for production
+    env_file:
+      - .env
+    ports:
+      - ${EXTERNAL_PORT}:${SERVER_PORT}
+    ## remove the volume mounting for production
+    volumes:
+      - ./:/app

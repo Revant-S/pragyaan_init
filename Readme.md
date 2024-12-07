@@ -1,6 +1,6 @@
 # Golang MVC Backend
 
-## Initial Setup
+## Cloning repo and setting up .env
 
 1. **Clone the Repository**
     ```sh
@@ -15,13 +15,22 @@
 
     Open the `.env` file and set the appropriate environment variables.
 
-3. **Run Initial Setup**
+## Local Setup
+
+1. **Run Initial Setup**
     ```sh
     make initial-setup
     ```
 
-4. **Run the Server**
+2. **Run the Server**
     ```sh
     make run
     ```
+## Docker
+
+Start the service
+
+```sh
+docker compose up -d
+```
 

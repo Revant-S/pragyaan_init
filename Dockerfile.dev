@@ -1,0 +1,16 @@
+FROM golang:latest
+
+WORKDIR /app
+
+RUN go install github.com/cespare/reflex@latest \
+    && go install github.com/swaggo/swag/cmd/swag@v1.8.12  
+
+COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+
+COPY go.mod go.sum ./
+
+RUN go mod tidy
+
+EXPOSE $SERVER_PORT
+
+ENTRYPOINT ["docker-entrypoint"]

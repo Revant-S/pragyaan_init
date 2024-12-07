@@ -1,0 +1,28 @@
+# Building binary with golang image
+FROM golang:latest AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+RUN go mod tidy
+
+COPY . .
+
+RUN go build -o server ./main.go
+
+
+# Running binary with alpine image
+FROM alpine:latest
+
+WORKDIR /app
+
+RUN apk --no-cache add libc6-compat
+
+COPY --from=builder /app/server .
+
+COPY .env .
+
+EXPOSE $SERVER_PORT
+
+CMD ["./server"]
