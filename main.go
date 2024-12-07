@@ -12,10 +12,11 @@ import (
 	"syscall"
 	"time"
 
+	"main/docs"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
-	"main/docs"
 )
 
 // @title Super Hero Game MVC Backend
@@ -73,7 +74,7 @@ func main() {
 			log.Fatalf("Failed to start server: %v", err)
 		}
 	}()
-	log.Printf("Server started on port %s", string(port))
+	log.Printf("Server started on port %d", port)
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)

@@ -57,11 +57,11 @@ func (uc *UserController) Signup(c echo.Context) error {
 	}
 
 	existingUser, _ := utils.GetUserByEmail(newUser.Email)
-	
+
 	if existingUser != (models.User{}) {
 		return utils.JSONResponse(c, http.StatusBadRequest, "User already exists")
 	}
-	
+
 	newUser.Password = string(hashedPassword)
 	savedUser, err := utils.CreateUser(newUser)
 	if err != nil {

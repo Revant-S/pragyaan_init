@@ -47,7 +47,9 @@ func LoadEnvironmentVariables(envFiles ...string) error {
 			}
 		}
 	} else {
-				godotenv.Load(".env", ".env.local")
+		if err := godotenv.Load(".env", ".env.local"); err != nil {
+			log.Printf("Warning: Could not load default env files: %v", err)
+		}
 	}
 
 	Env = &AppConfig{
@@ -61,8 +63,6 @@ func LoadEnvironmentVariables(envFiles ...string) error {
 		Environment:   getEnv("APP_ENV", defaultConfig.Environment),
 		Debug:         getEnvAsBool("DEBUG", defaultConfig.Debug),
 	}
-
-
 
 	if err := validateConfiguration(Env); err != nil {
 		return fmt.Errorf("configuration validation failed: %w", err)
@@ -117,8 +117,6 @@ func getEnvAsBool(key string, defaultValue bool) bool {
 	}
 	return value
 }
-
-
 
 func validateConfiguration(config *AppConfig) error {
 	if config.ServerPort <= 0 || config.ServerPort > 65535 {
