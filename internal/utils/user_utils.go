@@ -39,7 +39,6 @@ func CreateUser(user models.User) (mongo.InsertOneResult, error) {
 func GetUserByEmail(email string) (models.User, error) {
 	var user models.User
 	coll := config.GetCollection("users")
-
 	err := coll.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {

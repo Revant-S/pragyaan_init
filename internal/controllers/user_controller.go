@@ -56,13 +56,12 @@ func (uc *UserController) Signup(c echo.Context) error {
 		return utils.JSONResponse(c, http.StatusInternalServerError, "Error processing password")
 	}
 
-	existingUser, err := utils.GetUserByEmail(newUser.Email)
-	if err != nil {
-		return utils.JSONResponse(c, http.StatusInternalServerError, "Error checking existing user")
-	}
+	existingUser, _ := utils.GetUserByEmail(newUser.Email)
+	
 	if existingUser != (models.User{}) {
 		return utils.JSONResponse(c, http.StatusBadRequest, "User already exists")
 	}
+	
 	newUser.Password = string(hashedPassword)
 	savedUser, err := utils.CreateUser(newUser)
 	if err != nil {

@@ -1,0 +1,42 @@
+name: Go Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Go environment
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21.1' 
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: go mod tidy
+
+    # Step 4: Lint the code
+    - name: Run GolangCI-Lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: latest # Installs the latest version of GolangCI-Lint
+
+    # Step 5: Build the project
+    - name: Build the project
+      run: go build -v ./...
+
+    # # Step 6: Run tests
+    # - name: Run tests
+    #   run: go test -v ./...
+  
