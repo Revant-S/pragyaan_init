@@ -1,14 +1,24 @@
+version: '3.8'
+
 services:
   backend:
     container_name: superhero-backend
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.dev ## Use Dockerfile.prod for production
+    restart: unless-stopped
     env_file:
       - .env
     ports:
       - ${EXTERNAL_PORT}:${SERVER_PORT}
-      - ${MONGO_PORT}:${MONGO_PORT} ## Port mapping if using MongoDB in local
+
     ## remove the volume mounting for production
     volumes:
       - ./:/app
+
+  db:
+    container_name: superhero-db
+    image: mongo:latest
+    restart: unless-stopped
+    env_file:
+      - .env
