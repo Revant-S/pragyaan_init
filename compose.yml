@@ -23,9 +23,11 @@ services:
     env_file:
       - .env
     volumes:
-      - superhero:/data/db
-      - superhero:/data/configdb
+      - superhero-db:/data/db
+      - superhero-db-config:/data/configdb
 
 volumes:
-  superhero:
-    name: superhero-volume
+  superhero-db:
+    name: superhero-db
+  superhero-db-config:
+    name: superhero-db-config
