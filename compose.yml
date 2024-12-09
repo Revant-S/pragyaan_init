@@ -12,6 +12,7 @@ services:
     ports:
       - ${EXTERNAL_PORT}:${SERVER_PORT}
 
+
     ## remove the volume mounting for production
     volumes:
       - ./:/app
@@ -25,6 +26,8 @@ services:
     volumes:
       - superhero-db:/data/db
       - superhero-db-config:/data/configdb
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   superhero-db:
